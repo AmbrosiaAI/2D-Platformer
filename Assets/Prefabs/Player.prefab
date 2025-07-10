@@ -106,6 +106,8 @@ MonoBehaviour:
   InvincibleTime: 1
   canvas: {fileID: 0}
   hp: 0
+  DamageSound: {fileID: 8300000, guid: dc6614beca09347ec9b258f12d154bdd, type: 3}
+  DeathSound: {fileID: 8300000, guid: a235d590ef2a04d1b85b61ef4c21337c, type: 3}
 --- !u!114 &2191869598379803206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 257.6
   jumpPower: 8
+  JumpSound: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
 --- !u!95 &44879406694414834
 Animator:
   serializedVersion: 5

@@ -18,15 +18,16 @@ public class PickUp : MonoBehaviour
                 {
                     int[] playerHP = collision.GetComponent<PlayerHP>().getHP();
                     if (playerHP[0] < playerHP[1]) collision.GetComponent<PlayerHP>().getHeal();
-                    else InventoryManager.Instance.AddItem(price);
+                    else Messenger<int>.Broadcast(EventList.AddPoints, price);
                 }
                 else
                 {
-                    InventoryManager.Instance.AddItem(price);
+                    Messenger<int>.Broadcast(EventList.AddPoints, price);
                 }
                 isCollected = true;
                 animator.SetTrigger("Collected");
                 yield return new WaitForSeconds(0.3f);
+                Messenger<int>.Broadcast(EventList.Item_Collected, price);
                 Destroy(gameObject);
             }
         }

@@ -18,16 +18,19 @@ public class ButtonManager : MonoBehaviour
 
     private void NextLevel()
     {
+        Messenger.Broadcast(EventList.Button_Click);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void RestartLevel()
     {
+        Messenger.Broadcast(EventList.Button_Click);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void ExitButton()
     {
+        Messenger.Broadcast(EventList.Button_Click);
         SceneManager.LoadScene(0);
     }
 }

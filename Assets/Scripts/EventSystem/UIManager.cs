@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     private void OpenMenu()
     {
+        Messenger.Broadcast(EventList.Button_Click);
         SceneManager.LoadScene(0);
     }
 }

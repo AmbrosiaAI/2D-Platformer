@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
     private uint itemScore = 0;
     private uint hpLost = 0;
     private uint time = 0;
-    public static InventoryManager Instance { get; private set; }
+
     private TextMeshProUGUI score;
     private Canvas canvas;
 
@@ -16,8 +16,13 @@ public class InventoryManager : MonoBehaviour
     {
         canvas = transform.parent.GetComponent<Canvas>();
         score = canvas.transform.GetChild(1).transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        Instance = this;
         InvokeRepeating("Timer", 0f, 1f);
+        Messenger<int>.AddListener(EventList.AddPoints, AddItem);
+    }
+
+    private void OnDestroy()
+    {
+        Messenger<int>.RemoveListener(EventList.AddPoints, AddItem);
     }
 
     private void Timer()
@@ -38,7 +43,7 @@ public class InventoryManager : MonoBehaviour
     {
         CancelInvoke("Timer");
     }
-    public void AddItem(int price=1)
+    private void AddItem(int price)
     {
         itemScore=(uint)((int)itemScore+price);
         score.text = "Ñ÷¸ò: " + itemScore;

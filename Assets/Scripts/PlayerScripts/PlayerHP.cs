@@ -12,6 +12,8 @@ public class PlayerHP : MonoBehaviour
     private Vector2 savepointPosition;
     private bool Invincible = false;
     [SerializeField] private int hp;
+    [SerializeField] private AudioClip DamageSound;
+    [SerializeField] private AudioClip DeathSound;
 
     public int[] getHP()
     {
@@ -36,10 +38,12 @@ public class PlayerHP : MonoBehaviour
             hpIndicator.text = "HP:" + hp;
             if (hp <= 0)
             {
+                Messenger<AudioClip>.Broadcast(EventList.Player_Get_Damage, DeathSound);
                 StartCoroutine(respawn());
                 Invincible = false;
             } else
             {
+                Messenger<AudioClip>.Broadcast(EventList.Player_Get_Damage, DamageSound);
                 Rigidbody2D body = GetComponent<Rigidbody2D>();
                 Vector2 currentVelocity = body.velocity;
                 body.velocity = Vector2.zero;

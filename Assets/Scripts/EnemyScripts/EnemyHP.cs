@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHP : MonoBehaviour
 {
     [SerializeField] private int hp = 1;
+    [SerializeField] private int points = 0;
     private Animator animator;
     private BoxCollider2D box;
 
@@ -44,10 +45,13 @@ public class EnemyHP : MonoBehaviour
         animator.SetInteger("HP", hp);
         animator.SetTrigger("Hit");
         if (hp <= 0) StartCoroutine(death());
+        else Messenger.Broadcast(EventList.EnemyGetDamage);
     }
 
     private IEnumerator death()
     {
+        Messenger.Broadcast(EventList.EnemyDeath);
+        Messenger<int>.Broadcast(EventList.AddPoints, points);
         gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(2, 4), ForceMode2D.Impulse);
         box.enabled = false;
         yield return new WaitForSeconds(10);

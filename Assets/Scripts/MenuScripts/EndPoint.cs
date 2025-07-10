@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class EndPoint : MonoBehaviour
 {
-
+    
     [SerializeField] private ParticleSystem _particleSystem;
     private bool hasTriggerd = false;
     private void OnTriggerEnter2D(Collider2D other)
@@ -13,6 +13,7 @@ public class EndPoint : MonoBehaviour
         if (other.CompareTag("Player") && !hasTriggerd)
         {
             hasTriggerd = true;
+            Messenger.Broadcast(EventList.EndpointReached);
             _particleSystem.Play();
             other.GetComponent<PlayerHP>().setSpawnPosition(this.transform.position);
         }

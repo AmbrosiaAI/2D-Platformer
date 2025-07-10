@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
 {
     public float speed = 250f;
     public float jumpPower = 12f;
+    [SerializeField] private AudioClip JumpSound;
 
     private Animator animator;
     private bool isRun = false;
@@ -69,6 +70,7 @@ public class PlayerControl : MonoBehaviour
 
         if (grounded && Input.GetKeyDown(KeyCode.Space)) //Jump
         {
+            Messenger<AudioClip>.Broadcast(EventList.Player_Jump, JumpSound);
             body.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
         }
         body.velocity = new Vector2 (dx, body.velocity.y);
